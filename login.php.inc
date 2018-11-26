@@ -6,7 +6,7 @@ private $logindb;
 
 public function __construct()
 {
-	$this->logindb = new mysqli("localhost","newuser","password","loginDB");
+	$this->logindb = new mysqli("localhost","root","password","zipversions");
 
 	if ($this->logindb->connect_errno != 0)
 	{
@@ -35,7 +35,7 @@ public function validateLogin($username,$password)
 	}
 	return 0;//no users matched username
 }
-//}
+
 public function validateSignup($username,$password)
 {
 	$un = $this->logindb->real_escape_string($username);
@@ -43,9 +43,9 @@ public function validateSignup($username,$password)
 	$statement = "select * from login where username  = '$un'";
 	$response = $this->logindb->query($statement);
 
-/*	while ($row = $response->fetch_assoc())
+	while ($row = $response->fetch_assoc())
 	{
-		echo "check username for $username".PHP_EOL;*/
+		echo "check username for $username".PHP_EOL;
 		$row = $response->fetch_assoc();
 		if ($row["username"] == $un)
 		{
@@ -57,14 +57,14 @@ public function validateSignup($username,$password)
 			//echo "2".PHP_EOL;
 		}
 		else{
-			$s = "INSERT INTO login (username, password) VALUES ('$username', '$password')";
+			$s = "INSERT INTO login (username, password) VALUES ('$username', '$pass			word')";
 			$ss = "select * from login where username = '$un'";
 			$response = $this->logindb->query($s);
 			return 0;
 			exit();
 
 		}
-	//}
+	}
 }
 }
 ?>

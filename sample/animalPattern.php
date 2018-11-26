@@ -1,7 +1,5 @@
 <?php
 session_start();
-//$httpApiUrl = "https://api.rescuegroups.org/http/v2.json";
-//function ListDeezNuts(){
 
 $breed = $_POST['breed'];
 #echo "Hello";
@@ -12,47 +10,21 @@ $data = array(
 	"objectType" => "animalPatterns",
 	"objectAction" => "publicSearch",
 	"search" => array(
-		//"calcFoundRows" => "Yes",
 		"resultStart" => "0",
 		"resultLimit" => "500",
-		//"resultSort" => "breedName",
 		"resultSort" => "patternName",
 		"resultOrder" => "asc",
-	//	"fields" => array("animalID","animalOrgID","animalName","animalSpecies","color"/*,"animalTumbnailUrl"*/),
 		"filters" => array(
 			array(
 				"fieldName" => "patternSpecies",
 				"operation" => "equals",
 				"criteria" => $breed,
 			),
-			/*array(
-				"fieldName" => "species",
-				"operation" => "equal",
-				"criteria" => "Dog"
-
-			),*/
 		),
 		"filterProcessing"=> "1",
 		"fields"=> array("patternID","patternName","patternSpecies","patternSpeciesID"),
-		//"fields"=>array("breedID", "breedName", "breedSpecies", "breedSpeciesID"),
-	),
+		),
 );
-/*"filters" => array(
-       	array(
-	"fieldName" => "animalStatus",
-	"operation" => "equal",
-	"criteria" => "Available"
-	),
-	array(
-		"fieldName" => "animalGeneralSizePotential",
-		"operation" => "equal",
-		"criteria" => "Small",
-	),
-),
-	"fields" => array("animalSpecies"),
-),
-);*/
-	
 
 $jsonData = json_encode($data);
 $ch = curl_init('https://api.rescuegroups.org/http/v2.json');
@@ -74,36 +46,9 @@ if(curl_errno($ch)) {
 	$results = $result;
 }
 
-//$stack = array();
-//if($results["animalSpecies"] == "Dog"){
-// array_push($stack, $results["animalSpecies"]);	
-//}
-
 
 echo json_encode($results);
 
-/*$myObj =
-    array(
-	"name" => "John",
-    "age" => 30,
-    "cars" => array( 
-        array("name"=>"Ford", "models"=> array("Fiesta", "Focus", "Mustang"),),
-        array("name"=>"BMW", "models"=> array("320", "X3", "X5"),),
-        array("name"=>"Fiat", "models"=> array("500", "Panda"),),
-		array("name"=>"Ford", "models"=> array("Fusion"),),
-
-    ),
-);
-
-echo json_encode($myObj);
- */
-
-//print_r("THESE VALS  $json_encode($results)");
-///$myObj = $json_encode($results);
-//return $json_decode($results);
-//echo $myObj.status;
-//$resultsArray = json_decode($results);
-//print_r($resultsArray);
 
 $result = postToApi($data);
 if (!$result){
