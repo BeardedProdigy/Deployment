@@ -107,7 +107,7 @@ function FEsend($VersionName,$host,$ip)
    $num = mysqli_num_rows($duplicate);
    if($num ==  1)
    {
-          return "Duplicate version value entered..";
+          return "Duplicate version value entered.....";
    }
    else
    {
